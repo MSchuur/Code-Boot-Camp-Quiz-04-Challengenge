@@ -42,19 +42,19 @@ h3 {
 .container .timer {
     display: inline;
     float: right;
-    width: auto;
-    text-align: right;
+    width: 80px;
+    text-align: left;
     padding: 0 10px;
     font-size: 15px;
 }
 
-.quiz-text {
+.start {
     font-size: 25px;
     text-align: center;
     padding: 30px 50px;
 }
 
-.start-button {
+.sButton {
     position: absolute;
     left: 45%;
     padding: 10px;
@@ -62,9 +62,10 @@ h3 {
     margin-right: auto;
     font-size: 20px;
     border-radius: 10px;
-    background-color: deepskyblue;
+    background-color: rgb(51, 10, 118);
     cursor: pointer;
+    color: white;
 }
-.start-button:hover {
-    background-color: green;
+.sButton:hover {
+    background-color: rgb(147, 6, 147);
 }
