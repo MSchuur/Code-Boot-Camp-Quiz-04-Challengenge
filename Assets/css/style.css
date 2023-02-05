@@ -1,0 +1,70 @@
+.wrapper {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 62.5%;
+} 
+
+.container {
+    background-color: #e8e9e6;
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 600px;
+    padding: 10px;
+    margin-top: 50px;
+    margin-bottom: auto;
+    border: 2px solid darkgray;
+}
+
+h1 {
+    clear: both;
+    text-align: center;
+    margin-top: 100px;
+    font-size: 42px;
+
+}
+h3 {
+    margin: 0;
+}
+.container .high-score {
+    display: inline;
+    float: left;
+    width: auto;
+    padding: 0 10;
+    font-size: 15px;
+}
+
+.container .timer {
+    display: inline;
+    float: right;
+    width: auto;
+    text-align: right;
+    padding: 0 10px;
+    font-size: 15px;
+}
+
+.quiz-text {
+    font-size: 25px;
+    text-align: center;
+    padding: 30px 50px;
+}
+
+.start-button {
+    position: absolute;
+    left: 45%;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: deepskyblue;
+    cursor: pointer;
+}
+.start-button:hover {
+    background-color: green;
+}
