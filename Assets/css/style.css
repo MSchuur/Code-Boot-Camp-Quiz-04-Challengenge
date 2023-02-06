@@ -68,6 +68,17 @@ p {
 .viewing li {
     font-size: 25px;
     list-style: lower-alpha;
+    width: 250px;
+    background-color:#330a76;
+    color: white;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.viewing li:hover {
+    background-color: #930693;
 }
 
 .startB {
@@ -78,11 +89,12 @@ p {
     margin-right: auto;
     font-size: 20px;
     border-radius: 10px;
-    background-color: rgb(51, 10, 118);
-    cursor: pointer;
+    background-color: #330a76;
+    
     color: white;
 }
-.startB :hover {
-    background-color: rgb(147, 6, 147);
+.startB:hover {
+    background-color: #930693;
+    cursor: pointer;
 }
 

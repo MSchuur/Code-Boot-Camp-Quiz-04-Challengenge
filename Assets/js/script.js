@@ -10,6 +10,7 @@ var li3 = document.createElement("li");
 var li4 = document.createElement("li");
 
 var start = document.querySelector(".startB");
+// var answer = docunemt.querySelector("li");
 
 var question1 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
 var question2 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
@@ -50,5 +51,6 @@ start.addEventListener("click", function(event) {
     console.log(divQuestion);;
 });
 
-// article.appendChild(divQuestion);
-console.log(divQuestion);
+
+
+
