@@ -2,25 +2,57 @@ var viewing = document.querySelector(".viewing");
 // Creating Element to place the Quiz Question
 var divQuestion = document.createElement("div")
 // Creating Element for the ordered list for answers
-var listEl = document.createElement("ol");
+var listEl = document.createElement("ul");
 // Creating Element each answer in list item
 var li1 = document.createElement("li");
 var li2 = document.createElement("li");
 var li3 = document.createElement("li");
 var li4 = document.createElement("li");
+var feedback = document.createElement("footer");
 
+// Variable to select the proper elements to change
+var next = document.querySelector("ul");
 var start = document.querySelector(".startB");
-// var answer = docunemt.querySelector("li");
+var correctAns;
 
-var question1 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
-var question2 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
-var question3 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
-var question4 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
-var question5 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
-var question6 = ["Insert the first Question 1 here?", "First Answer", "Second Answer", "Third Answer", "Fourth Answer", 0];
-var questions = [question1, question2, question3, question4, question5, question6]    
+var question = [
+    {
+        quest: "Which of the following <tags> requires a closing </tag>?",
+        ans: [
+            "<br>", "<p>", "<img>", "<meta>"
+        ],
+        ansNum: "<p>"
+    },
+    {
+        quest: "Which of the following is a text-decortation",
+        ans: [
+            "30px", "color", "bold", "underline"
+        ],
+        ansNum: 3 
+    },
+    {
+        quest: "CSS is the acroynm for?",
+        ans: [
+            "Cassading Style Sheet", "Computer Style Sheet", "Colorful Style Sheet", "Common Style Sheet"
+        ],
+        ansNum: 0
+    },
+    {
+        quest: "What Java Script command do you use to add an elemet to a parent?",
+        ans: [
+            ".remove", ".getElement", "uppendChild", "createElement"
+        ],
+        ansNum: 2
+    },
+    {
+        quest: "What is the extension for a Jave Script file?",
+        ans: [
+            ".doc", ".html", ".css", "<.js>"
+        ],
+        ansNum: 3
+    }
+]
 
-// Function to remove the start screen on the click of the Start Quiz Button
 function startQuiz(event) {
     var startElButton = document.getElementById("startButton");
     var headingEl = document.getElementById("heading");
@@ -31,26 +63,50 @@ function startQuiz(event) {
 // Function to add element for the questions
 function quizQuestions() {
     // Inserting the text from the Array Questions
-    divQuestion.textContent = questions[0][0];
-    li1.textContent = questions[0][1];
-    li2.textContent = questions[0][2];
-    li3.textContent = questions[0][3];
-    li4.textContent = questions[0][4];
+    var i=0;
+    divQuestion.textContent = question[i].quest;
+    li1.textContent = question[i].ans[0];
+    li2.textContent = question[i].ans[1];
+    li3.textContent = question[i].ans[2];
+    li4.textContent = question[i].ans[3];
+    correctAns = question[i].ansNum;
+    
+    console.log(correctAns);
     viewing.appendChild(divQuestion);
     viewing.appendChild(listEl);
     listEl.appendChild(li1);
     listEl.appendChild(li2);
     listEl.appendChild(li3);
     listEl.appendChild(li4);
+
+    li1.onclick = () =>{
+        if(li1 === correctAns) {
+            console.log(true);        
+        }
+        
+        else {
+            console.log(false);
+        }
+        
+    }
+
+
+    
+    
 }
 
 // Starts the fucntion for the quiz event listener
-start.addEventListener("click", function(event) {
+start.onclick = () =>{
     startQuiz();
+    // Start timer
+    
     quizQuestions();
-    console.log(divQuestion);;
-});
+    console.log(divQuestion);
+    
+};
 
 
+
+// 
 
 
