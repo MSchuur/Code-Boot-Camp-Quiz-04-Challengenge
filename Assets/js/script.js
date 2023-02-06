@@ -1,3 +1,4 @@
+var body =document.querySelector(".container");
 var viewing = document.querySelector(".viewing");
 // Creating Element to place the Quiz Question
 var divQuestion = document.createElement("div")
@@ -8,13 +9,14 @@ var li1 = document.createElement("li");
 var li2 = document.createElement("li");
 var li3 = document.createElement("li");
 var li4 = document.createElement("li");
-var feedback = document.createElement("footer");
-
+var questNum = 0;
 // Variable to select the proper elements to change
+var footer = document.querySelector("ansDisplay")
 var next = document.querySelector("ul");
 var start = document.querySelector(".startB");
 var correctAns;
 
+// Questions and answers for the quiz
 var question = [
     {
         quest: "Which of the following <tags> requires a closing </tag>?",
@@ -63,7 +65,7 @@ function startQuiz(event) {
 // Function to add element for the questions
 function quizQuestions() {
     // Inserting the text from the Array Questions
-    var i=0;
+    var i = questNum;
     divQuestion.textContent = question[i].quest;
     li1.textContent = question[i].ans[0];
     li2.textContent = question[i].ans[1];
@@ -71,7 +73,6 @@ function quizQuestions() {
     li4.textContent = question[i].ans[3];
     correctAns = question[i].ansNum;
     
-    console.log(correctAns);
     viewing.appendChild(divQuestion);
     viewing.appendChild(listEl);
     listEl.appendChild(li1);
@@ -81,29 +82,46 @@ function quizQuestions() {
 
     li1.onclick = () =>{
         if(li1 === correctAns) {
-            console.log(true);        
+            footer.textContent = "Correct";
+            body.appendChild(footer);
+            i ++;
         }
         
         else {
             console.log(false);
+            questNum ++;
+            console.log(questNum);
+            quizQuestions();
+
         }
         
     }
-
+    // }
+    
 
     
     
 }
 
 // Starts the fucntion for the quiz event listener
-start.onclick = () =>{
+start.addEventListener("click", function(event) {
     startQuiz();
-    // Start timer
-    
     quizQuestions();
+});
+    // Start timer
+listEl.addEventListener("click", function(event) {
+    
+    questNum ++;
+    quizQuestions();
+    console.log(questNum);
+    
+})
+    
+    
+
     console.log(divQuestion);
     
-};
+
 
 
 
