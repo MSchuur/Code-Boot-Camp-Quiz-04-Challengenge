@@ -5,53 +5,55 @@ var divQuestion = document.createElement("div")
 // Creating Element for the ordered list for answers
 var listEl = document.createElement("ul");
 // Creating Element each answer in list item
-var li1 = document.createElement("li");
-var li2 = document.createElement("li");
-var li3 = document.createElement("li");
-var li4 = document.createElement("li");
-var questNum = 0;
+
+// var li1 = document.createElement("li");
+// var li2 = document.createElement("li");
+// var li3 = document.createElement("li");
+// var li4 = document.createElement("li");
+var quizNum = 0;
+
 // Variable to select the proper elements to change
 var footer = document.querySelector("ansDisplay")
-var next = document.querySelector("ul");
+
+// var next = document.querySelector("ul");
 var start = document.querySelector(".startB");
-var correctAns;
 
 // Questions and answers for the quiz
-var question = [
+var quiz = [
     {
-        quest: "Which of the following <tags> requires a closing </tag>?",
-        ans: [
+        ask: "Which of the following <tags> requires a closing </tag>?",
+        options: [
             "<br>", "<p>", "<img>", "<meta>"
         ],
-        ansNum: "<p>"
+        answer: "<p>"
     },
     {
-        quest: "Which of the following is a text-decortation",
-        ans: [
+        ask: "Which of the following is a text-decortation",
+        options: [
             "30px", "color", "bold", "underline"
         ],
-        ansNum: 3 
+        answer: "underline" 
     },
     {
-        quest: "CSS is the acroynm for?",
-        ans: [
+        ask: "CSS is the acroynm for?",
+        options: [
             "Cassading Style Sheet", "Computer Style Sheet", "Colorful Style Sheet", "Common Style Sheet"
         ],
-        ansNum: 0
+        answer: "Cassading Style Sheet"
     },
     {
-        quest: "What Java Script command do you use to add an elemet to a parent?",
-        ans: [
-            ".remove", ".getElement", "uppendChild", "createElement"
+        ask: "What Java Script command do you use to add an elemet to a parent?",
+        options: [
+            ".remove", ".getElement", ".uppendChild", ".createElement"
         ],
-        ansNum: 2
+        answer: ".uppendChild"
     },
     {
-        quest: "What is the extension for a Jave Script file?",
-        ans: [
-            ".doc", ".html", ".css", "<.js>"
+        ask: "What is the extension for a Jave Script file?",
+        options: [
+            ".doc", ".html", ".css", ".js"
         ],
-        ansNum: 3
+        answer: ".js"
     }
 ]
 
@@ -59,72 +61,55 @@ function startQuiz(event) {
     var startElButton = document.getElementById("startButton");
     var headingEl = document.getElementById("heading");
     startElButton.remove();
-    console.log("Pressed");
 }
 
-// Function to add element for the questions
-function quizQuestions() {
-    // Inserting the text from the Array Questions
-    var i = questNum;
-    divQuestion.textContent = question[i].quest;
-    li1.textContent = question[i].ans[0];
-    li2.textContent = question[i].ans[1];
-    li3.textContent = question[i].ans[2];
-    li4.textContent = question[i].ans[3];
-    correctAns = question[i].ansNum;
-    
+// Function to renderthe question and answers
+function renderQuestion() {
+
+    divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
     viewing.appendChild(listEl);
-    listEl.appendChild(li1);
-    listEl.appendChild(li2);
-    listEl.appendChild(li3);
-    listEl.appendChild(li4);
 
-    li1.onclick = () =>{
-        if(li1 === correctAns) {
-            footer.textContent = "Correct";
-            body.appendChild(footer);
-            i ++;
-        }
-        
-        else {
-            console.log(false);
-            questNum ++;
-            console.log(questNum);
-            quizQuestions();
-
-        }
-        
+    for (var i = 0; i < quiz.length -1; i++) {
+        var li = document.createElement("li");
+        li.textContent = quiz[quizNum].options[i];
+        listEl.appendChild(li);
     }
-    // }
-    
-
-    
-    
 }
 
-// Starts the fucntion for the quiz event listener
+// Function for the Input of initials and edisplaying the score
+function inptInt(){
+    // Insert code here
+}
+
+// Starts the fucntion for the quiz when the start button is clicked
 start.addEventListener("click", function(event) {
     startQuiz();
-    quizQuestions();
+    renderQuestion();
 });
     // Start timer
+
 listEl.addEventListener("click", function(event) {
+
+    var element = event.target;
+    var elementText = event.target.innerText;
     
-    questNum ++;
-    quizQuestions();
-    console.log(questNum);
+    if(element.matches("li") && elementText === quiz[quizNum].answer) {
+        console.log(quizNum);
+        quizNum ++;
+        listEl.textContent = "";
+        viewing.appendChild(listEl);
+        renderQuestion()
+    }
+    else if (element.matches("li") && elementText !== quiz[quizNum].answer) {
+        console.log(quizNum);
+        quizNum ++;
+        listEl.textContent = "";
+        viewing.appendChild(listEl);
+        renderQuestion();
+    }
+    else {
+        inptInt();
+    }
     
-})
-    
-    
-
-    console.log(divQuestion);
-    
-
-
-
-
-// 
-
-
+});

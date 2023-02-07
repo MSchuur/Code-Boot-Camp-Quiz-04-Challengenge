@@ -69,6 +69,7 @@ p {
     counter-reset: quiz-list;
     list-style: none;
     position: relative;
+    opacity: 1;
 }
 
 .viewing li {
@@ -80,6 +81,7 @@ p {
     cursor: pointer;
     border-radius: 0px 10px 10px 0px;
     padding-left: 10px;
+    opacity: 1;
     
 }
 
