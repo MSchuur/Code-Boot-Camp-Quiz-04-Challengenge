@@ -22,6 +22,7 @@ var submitEl = document.createElement("button");
 var quizNum = 0;
 var correctAnswer;
 var secondsLeft = 75;
+var score;
 
 // Questions and answers for the quiz
 var quiz = [
@@ -76,6 +77,7 @@ function setTimer() {
         
         secondsLeft--;
         timerEl.textContent = "Timer: " + secondsLeft;
+        score = secondsLeft;
         timerEl.setAttribute("style", "font-size: 1.1em; font-weight: bold");
         
         if(secondsLeft === 0) {
@@ -154,7 +156,7 @@ function inptInt(){
         
     // Create the sencod msg with the score on the form
     formEl.appendChild(formP2El)
-    formP2El.textContent = "Your final score is: " + timerEl.textContent;
+    formP2El.textContent = "Your final score is: " + score;
     formP2El.setAttribute("class", "score");
     
     // Create label and input
@@ -166,9 +168,9 @@ function inptInt(){
     inputEl.setAttribute("class", "form");
 
     // Create submit button
-    formEl.appendChild(buttonEl);
-    buttonEl.setAttribute("class", "submitForm");
-    buttonEl.setAttribute("name", "Submit");
+    labelEl.appendChild(submitEl);
+    submitEl.setAttribute("class", "submitForm");
+    submitEl.textContent = "Submit";
 
     
 
@@ -176,6 +178,9 @@ function inptInt(){
 
 // Starts the fucntion for the quiz when the start button is clicked
 start.addEventListener("click", function(event) {
+    secondsLeft = 75;
+    listEl.textContent = "";
+    viewing.appendChild(listEl);
     startQuiz();
     // Renders the first question
     renderQuestion();
@@ -195,7 +200,8 @@ listEl.addEventListener("click", function(event) {
         // Resets to a blank list
         listEl.textContent = "";
         viewing.appendChild(listEl);
-        correctAnswer = true
+        correctAnswer = true;
+        console.log(correctAnswer);
         checkAnswer();
     }
     else if (element.matches("li") && elementText !== quiz[quizNum].answer) {
@@ -204,6 +210,7 @@ listEl.addEventListener("click", function(event) {
         // Resets to a blank list 
         listEl.textContent = "";
         viewing.appendChild(listEl);
+        
         checkAnswer();
     }
 });
