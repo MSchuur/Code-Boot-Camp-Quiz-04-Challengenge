@@ -1,22 +1,22 @@
 var body =document.querySelector(".container");
 var viewing = document.querySelector(".viewing");
 var timerEl = document.querySelector(".timer");
+var scoreEl = document.getElementById("time");
+var footerEl = document.getElementById("ansDisplay");
+var start = document.querySelector(".startB");
+
+
 
 // Creating Element to place the Quiz Question
 var divQuestion = document.createElement("div")
 // Creating Element for the ordered list for answers
 var listEl = document.createElement("ul");
 // Creating Element for the timer display
-var scoreEl = document.getElementById("time");
+
 
 var quizNum = 0;
 var correctAnswer;
-var secondsLeft = 15;
-// Variable to select the proper elements to change
-var footer = document.querySelector("ansDisplay")
-
-// var next = document.querySelector("ul");
-var start = document.querySelector(".startB");
+var secondsLeft = 75;
 
 // Questions and answers for the quiz
 var quiz = [
@@ -63,7 +63,7 @@ function startQuiz(event) {
     startElButton.remove();
 }
 
-// Initialize and run timer
+// Initialize and starts timer/scorer
 function setTimer() {
     console.log("timer starting");
 
@@ -76,6 +76,7 @@ function setTimer() {
         
         if(secondsLeft === 0) {
             clearInterval(scoreEl);
+            
             inptInt();  
         }
     }, 1000);
@@ -83,7 +84,12 @@ function setTimer() {
 
 // Function to renderthe question and answers
 function renderQuestion() {
-
+    // Checks to see if all quiz questions have been asked and if true stop quiz and brings up input form
+    if(quiz.length !== quizNum) {
+        console.log(quiz.length);
+        console.log(quizNum);
+        // inptInt();
+    }
     console.log(quizNum);
     divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
@@ -97,15 +103,22 @@ function renderQuestion() {
     }
 }
 
+// Checks to see if the answer is correct and deducts time from the timer if incorrect
 function checkAnswer(){
-    console.log("It arrived");
-    console.log(correctAnswer);
+    
+    // Set the stlye element of the footer to indicate correct or incorrect answer
+    footerEl.setAttribute("style", "font-size: 42px; font=weight: bold; text-align: center; padding-top: 750px");
+    
     if(correctAnswer === true) {
         correctAnswer = false;
+        footerEl.textContent = "Correct";
+        
         renderQuestion();
     }
     else {
         console.log("Time to be Deducted");
+        secondsLeft = secondsLeft - 15;
+        footerEl.textContent = "Wrong";
         renderQuestion();
     }
 }
@@ -113,39 +126,38 @@ function checkAnswer(){
 // Function for the Input of initials and edisplaying the score
 function inptInt(){
     // Insert code here
+
 }
 
 // Starts the fucntion for the quiz when the start button is clicked
 start.addEventListener("click", function(event) {
     startQuiz();
+    // Renders the first question
     renderQuestion();
+    // Starts the timer/score
     setTimer();
 });
-    // Start timer
 
+// Listens for a click then determines if it is targeting the LI and then detirmeine if the guess is correct 
 listEl.addEventListener("click", function(event) {
 
     var element = event.target;
     var elementText = event.target.innerText;
 
     if(element.matches("li") && elementText === quiz[quizNum].answer) {
-        // console.log(quizNum);
         quizNum ++;
+        // resets to a blank list
         listEl.textContent = "";
         viewing.appendChild(listEl);
         correctAnswer = true
         checkAnswer();
     }
     else if (element.matches("li") && elementText !== quiz[quizNum].answer) {
-        // console.log(quizNum);
         quizNum ++;
+        // Resets to a blank list 
         listEl.textContent = "";
         viewing.appendChild(listEl);
 
         checkAnswer();
     }
-    else {
-        
-    }
-    
 });
