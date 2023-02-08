@@ -1,17 +1,17 @@
 var body =document.querySelector(".container");
 var viewing = document.querySelector(".viewing");
+var timerEl = document.querySelector(".timer");
+
 // Creating Element to place the Quiz Question
 var divQuestion = document.createElement("div")
 // Creating Element for the ordered list for answers
 var listEl = document.createElement("ul");
-// Creating Element each answer in list item
+// Creating Element for the timer display
+var scoreEl = document.getElementById("time");
 
-// var li1 = document.createElement("li");
-// var li2 = document.createElement("li");
-// var li3 = document.createElement("li");
-// var li4 = document.createElement("li");
 var quizNum = 0;
-
+var correctAnswer;
+var secondsLeft = 15;
 // Variable to select the proper elements to change
 var footer = document.querySelector("ansDisplay")
 
@@ -63,9 +63,28 @@ function startQuiz(event) {
     startElButton.remove();
 }
 
+// Initialize and run timer
+function setTimer() {
+    console.log("timer starting");
+
+    
+    scoreEl = setInterval(function() {
+        
+        secondsLeft--;
+        timerEl.textContent = "Timer: " + secondsLeft;
+        timerEl.setAttribute("style", "font-size: 1.1em; font-weight: bold");
+        
+        if(secondsLeft === 0) {
+            clearInterval(scoreEl);
+            inptInt();  
+        }
+    }, 1000);
+}
+
 // Function to renderthe question and answers
 function renderQuestion() {
 
+    console.log(quizNum);
     divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
     viewing.appendChild(listEl);
@@ -74,6 +93,20 @@ function renderQuestion() {
         var li = document.createElement("li");
         li.textContent = quiz[quizNum].options[i];
         listEl.appendChild(li);
+    
+    }
+}
+
+function checkAnswer(){
+    console.log("It arrived");
+    console.log(correctAnswer);
+    if(correctAnswer === true) {
+        correctAnswer = false;
+        renderQuestion();
+    }
+    else {
+        console.log("Time to be Deducted");
+        renderQuestion();
     }
 }
 
@@ -86,6 +119,7 @@ function inptInt(){
 start.addEventListener("click", function(event) {
     startQuiz();
     renderQuestion();
+    setTimer();
 });
     // Start timer
 
@@ -93,23 +127,25 @@ listEl.addEventListener("click", function(event) {
 
     var element = event.target;
     var elementText = event.target.innerText;
-    
+
     if(element.matches("li") && elementText === quiz[quizNum].answer) {
-        console.log(quizNum);
+        // console.log(quizNum);
         quizNum ++;
         listEl.textContent = "";
         viewing.appendChild(listEl);
-        renderQuestion()
+        correctAnswer = true
+        checkAnswer();
     }
     else if (element.matches("li") && elementText !== quiz[quizNum].answer) {
-        console.log(quizNum);
+        // console.log(quizNum);
         quizNum ++;
         listEl.textContent = "";
         viewing.appendChild(listEl);
-        renderQuestion();
+
+        checkAnswer();
     }
     else {
-        inptInt();
+        
     }
     
 });

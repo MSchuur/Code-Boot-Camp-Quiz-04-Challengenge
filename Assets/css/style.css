@@ -32,10 +32,11 @@ body {
 .container .timer {
     display: inline;
     float: right;
-    width: 80px;
+    width: 70px;
     text-align: left;
     padding: 0 10px;
     font-size: 15px;
+    font-weight: bold;
 }
 
 h1 {
