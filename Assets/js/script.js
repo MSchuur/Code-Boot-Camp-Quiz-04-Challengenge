@@ -12,7 +12,12 @@ var divQuestion = document.createElement("div")
 // Creating Element for the ordered list for answers
 var listEl = document.createElement("ul");
 // Creating Element for the timer display
-
+var formEl = document.createElement("form");
+var labelEl = document.createElement("label");
+var inputEl = document.createElement("input");
+var formP1El = document.createElement("p");
+var formP2El = document.createElement("p");
+var submitEl = document.createElement("button");
 
 var quizNum = 0;
 var correctAnswer;
@@ -59,7 +64,6 @@ var quiz = [
 
 function startQuiz(event) {
     var startElButton = document.getElementById("startButton");
-    var headingEl = document.getElementById("heading");
     startElButton.remove();
 }
 
@@ -85,11 +89,7 @@ function setTimer() {
 // Function to renderthe question and answers
 function renderQuestion() {
     // Checks to see if all quiz questions have been asked and if true stop quiz and brings up input form
-    if(quiz.length !== quizNum) {
-        console.log(quiz.length);
-        console.log(quizNum);
-        // inptInt();
-    }
+    
     console.log(quizNum);
     divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
@@ -99,6 +99,8 @@ function renderQuestion() {
         var li = document.createElement("li");
         li.textContent = quiz[quizNum].options[i];
         listEl.appendChild(li);
+        listEl.setAttribute("class", "veiwing");
+        
     
     }
 }
@@ -113,19 +115,62 @@ function checkAnswer(){
         correctAnswer = false;
         footerEl.textContent = "Correct";
         
-        renderQuestion();
+        if(quiz.length === quizNum) {
+            clearInterval(scoreEl);
+            inptInt();
+        }
+        else {
+            renderQuestion();
+        }
     }
     else {
-        console.log("Time to be Deducted");
         secondsLeft = secondsLeft - 15;
         footerEl.textContent = "Wrong";
-        renderQuestion();
+        
+        if(quiz.length === quizNum) {
+            clearInterval(scoreEl);
+            inptInt();
+        }
+        else {
+            renderQuestion(); 
+        }
     }
 }
 
-// Function for the Input of initials and edisplaying the score
+// Function for the Input of initials and eisplaying the score
 function inptInt(){
-    // Insert code here
+    
+    // Clear quiz from veiewing area
+    divQuestion.textContent = " ";
+
+    // Create form
+    viewing.appendChild(formEl);
+    formEl.setAttribute("class", "veiwing");
+    
+    // Create first text on the form
+    formEl.appendChild(formP1El);
+    formP1El.textContent = "All DONE";
+    formP1El.setAttribute("class", "msg");
+        
+    // Create the sencod msg with the score on the form
+    formEl.appendChild(formP2El)
+    formP2El.textContent = "Your final score is: " + timerEl.textContent;
+    formP2El.setAttribute("class", "score");
+    
+    // Create label and input
+    formEl.appendChild(labelEl);
+    labelEl.textContent = "Initials: ";
+    labelEl.setAttribute("class", "label")
+    formEl.appendChild(inputEl);
+    inputEl.setAttribute("placeholder", "Enter your initials here.");
+    inputEl.setAttribute("class", "form");
+
+    // Create submit button
+    formEl.appendChild(buttonEl);
+    buttonEl.setAttribute("class", "submitForm");
+    buttonEl.setAttribute("name", "Submit");
+
+    
 
 }
 
@@ -145,19 +190,24 @@ listEl.addEventListener("click", function(event) {
     var elementText = event.target.innerText;
 
     if(element.matches("li") && elementText === quiz[quizNum].answer) {
+        
         quizNum ++;
-        // resets to a blank list
+        // Resets to a blank list
         listEl.textContent = "";
         viewing.appendChild(listEl);
         correctAnswer = true
         checkAnswer();
     }
     else if (element.matches("li") && elementText !== quiz[quizNum].answer) {
+        
         quizNum ++;
         // Resets to a blank list 
         listEl.textContent = "";
         viewing.appendChild(listEl);
-
         checkAnswer();
     }
 });
+
+
+
+// var headingEl = document.getElementById("heading");
