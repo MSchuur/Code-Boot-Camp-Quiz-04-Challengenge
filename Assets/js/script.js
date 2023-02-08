@@ -1,4 +1,4 @@
-var body =document.querySelector(".container");
+var body = document.querySelector(".container");
 var viewing = document.querySelector(".viewing");
 var timerEl = document.querySelector(".timer");
 var scoreEl = document.getElementById("time");
@@ -171,9 +171,6 @@ function inptInt(){
     labelEl.appendChild(submitEl);
     submitEl.setAttribute("class", "submitForm");
     submitEl.textContent = "Submit";
-
-    
-
 }
 
 // Starts the fucntion for the quiz when the start button is clicked
@@ -215,6 +212,12 @@ listEl.addEventListener("click", function(event) {
     }
 });
 
+// Checks if the submit button is pressed for the input initials screen
+submitEl.addEventListener("click", function(event) {
+    var subElement = event.target;
+    
+    if(subElement.matches("button") === true) {
 
+    }
+})
 
-// var headingEl = document.getElementById("heading");

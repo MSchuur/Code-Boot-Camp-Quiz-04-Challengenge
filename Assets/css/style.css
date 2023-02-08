@@ -26,6 +26,11 @@ body {
     font-size: 15px;
 }
 
+.high-score .hslist {
+    width: 100px;
+    padding-left: 0px;
+}
+
 .container .timer {
     display: inline;
     float: right;
