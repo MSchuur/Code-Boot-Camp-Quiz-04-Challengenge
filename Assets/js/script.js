@@ -166,7 +166,7 @@ function inptInt(){
 
     // Create form
     viewing.appendChild(formEl);
-    formEl.setAttribute("class", "veiwing");
+    formEl.setAttribute("class", "form");
     
     // Create first text on the form
     formEl.appendChild(formP1El);
@@ -184,10 +184,11 @@ function inptInt(){
     labelEl.setAttribute("class", "label")
     formEl.appendChild(inputEl);
     inputEl.setAttribute("placeholder", "Enter your initials here.");
+    inputEl.setAttribute("text", "int-text.");
     inputEl.setAttribute("class", "formInpt");
 
     // Create submit button
-    labelEl.appendChild(submitEl);
+    viewing.appendChild(submitEl);
     submitEl.setAttribute("class", "submitBtn");
     submitEl.textContent = "Submit";
 }
@@ -242,7 +243,9 @@ submitEl.addEventListener("click", function(event) {
     console.log(subElement);
 
     if(subElement.matches("button") === true) {
-    
+        var initials = inputEl.value.trim();
+        initials = initials.toUpperCase();
+        console.log(initials);
         renderHighScoreList ()
 
     }
