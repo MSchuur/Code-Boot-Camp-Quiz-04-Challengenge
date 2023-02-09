@@ -19,27 +19,24 @@ var formP1El = document.createElement("p");
 var formP2El = document.createElement("p");
 var submitEl = document.createElement("button");
 var highScoreEl = document.createElement("li");
+var hsTitleEl = document.createElement("h1");
+var hsP1El = document.createElement("p");
+var clearBtnEl = document.createElement("button");
+var goBackBtnEl = document.createElement("button");
+
 
 var quizNum = 0;
 var correctAnswer;
 var secondsLeft = 75;
 var score;
 var highScore = [];
+var storedHighScore = 0;
+var initials;
 
 function init() {
-    var storedHS = JSON.parse(localStorage.getItem("highscore"));
-    console.log(storedHS);
+    storedHighScore = JSON.parse(localStorage.getItem("highscore"));
+    console.log(storedHighScore);
 }
-
-// function saveHighScore() {
-    
-//     var highScore = [inputEl.innerHTML, score];
-//     }
-// }
-
-// function renderHighScore () {
-    
-// }
 
 // Questions and answers for the quiz
 var quiz = [
@@ -130,7 +127,7 @@ function renderQuestion() {
 function checkAnswer(){
     
     // Set the stlye element of the footer to indicate correct or incorrect answer
-    footerEl.setAttribute("style", "font-size: 42px; font=weight: bold; text-align: center; padding-top: 750px");
+    footerEl.setAttribute("class", "footer");
     
     if(correctAnswer === true) {
         correctAnswer = false;
@@ -193,6 +190,36 @@ function inptInt(){
     submitEl.textContent = "Submit";
 }
 
+function highScoreList () {
+    
+    // Clear viewing area
+    viewing.textContent = "";
+    
+    // Create High Score Screen Title
+    viewing.appendChild(hsTitleEl);
+    hsTitleEl.getAttribute("class", "hsh1");
+    hsTitleEl.textContent = "High Scores";
+
+    // Create High Score Text
+    viewing.appendChild("hsP1El");
+    hsP1El.getAttribute("class", "hsp");
+    hsP1El.textContent= initials + "   " + score;
+    console.log(hsP1El.textContent);
+
+
+
+
+    
+    
+    // if (storedHighScore > score) {
+    //     alert = "You did not beat the High Score. Try Again";
+    // }
+    // else {
+        
+    //     console.log(storedHighScore);
+    // }
+}
+
 // Loads High Scores and starts the quiz
 init();
 
@@ -246,7 +273,7 @@ submitEl.addEventListener("click", function(event) {
         var initials = inputEl.value.trim();
         initials = initials.toUpperCase();
         console.log(initials);
-        renderHighScoreList ()
+        highScoreList ();
 
     }
 })
