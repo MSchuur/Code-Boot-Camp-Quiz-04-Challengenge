@@ -35,6 +35,7 @@ var score;
 var highScore = [];
 var storedHighScore = 0;
 var initials;
+var delayTime = 2;
 
 function init() {
     console.log("Starts here");
@@ -88,8 +89,6 @@ function startQuiz(event) {
 
 // Initialize and starts timer/scorer
 function setTimer() {
-    console.log("timer starting");
-
     
     scoreEl = setInterval(function() {
         
@@ -109,7 +108,7 @@ function setTimer() {
 // Function to renderthe question and answers
 function renderQuestion() {
 
-    footerEl.textContent = " ";
+    
     divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
     viewing.appendChild(listEl);
@@ -134,10 +133,19 @@ function checkAnswer(){
                 
         if(quiz.length === quizNum) {
             clearInterval(scoreEl);
+            divQuestion.textContent = "";
+            listEl.textContent = "";
+            footerEl.textContent = "";
             inptInt();
         }
+        // Delays going to the next question to see if the answer is correct
         else {
-            renderQuestion();
+            setTimeout(function() {
+                divQuestion.textContent = "";
+                listEl.textContent = "";
+                footerEl.textContent = "";
+                renderQuestion();         
+            }, 1000);
         }
     }
     else {
@@ -146,10 +154,20 @@ function checkAnswer(){
                 
         if(quiz.length === quizNum) {
             clearInterval(scoreEl);
+            divQuestion.textContent = "";
+            listEl.textContent = "";
+            footerEl.textContent = "";
             inptInt();
         }
+        // Delays going to the next question to see if the answer is correct
         else {
-            renderQuestion(); 
+            setTimeout(function() {
+                divQuestion.textContent = "";
+                listEl.textContent = "";
+                footerEl.textContent = "";
+                renderQuestion();         
+            }, 1000);
+            
         }
     }
 }
@@ -278,7 +296,8 @@ listEl.addEventListener("click", function(event) {
         
         quizNum ++;
         // Resets to a blank list
-        listEl.textContent = "";
+        // divQuestion.textContent = "";
+        // listEl.textContent = "";
         viewing.appendChild(listEl);
         correctAnswer = true;
         checkAnswer();
@@ -287,7 +306,7 @@ listEl.addEventListener("click", function(event) {
         
         quizNum ++;
         // Resets to a blank list 
-        listEl.textContent = "";
+        // listEl.textContent = "";
         viewing.appendChild(listEl);
         
         checkAnswer();
