@@ -24,8 +24,8 @@ var initials;
 var highScoreEl = document.createElement("li");
 var hsTitleEl = document.createElement("h1");
 var hsTextEl = document.createElement("h4");
-var clearBtnEl = document.createElement("button");
-var goBackBtnEl = document.createElement("button");
+
+
 
 
 var quizNum = 0;
@@ -99,7 +99,9 @@ function setTimer() {
         
         if(secondsLeft === 0) {
             clearInterval(scoreEl);
-            
+            divQuestion.textContent = "";
+            listEl.textContent = "";
+            footerEl.textContent = "";
             inptInt();  
         }
     }, 1000);
@@ -107,7 +109,6 @@ function setTimer() {
 
 // Function to renderthe question and answers
 function renderQuestion() {
-
     
     divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
@@ -145,7 +146,7 @@ function checkAnswer(){
                 listEl.textContent = "";
                 footerEl.textContent = "";
                 renderQuestion();         
-            }, 1000);
+            }, 750);
         }
     }
     else {
@@ -166,7 +167,7 @@ function checkAnswer(){
                 listEl.textContent = "";
                 footerEl.textContent = "";
                 renderQuestion();         
-            }, 1000);
+            }, 750);
             
         }
     }
@@ -222,8 +223,7 @@ function highScoreList () {
     // Compare High Score and store top High Score
     
     var lastHighScore = localStorage.getItem("HighScore", score);
-    console.log(lastHighScore);
-
+    
     // Check to see if a High Score is stored
     if (lastHighScore === null) {
         lastHighScore = 0;
@@ -234,16 +234,26 @@ function highScoreList () {
         localStorage.setItem("HighScore", score);
         viewing.appendChild(hsTextEl);
         hsTextEl.textContent = "Congrats!!! " + initials + " You now have the High Score: " + score;
-        console.log(hsP1El.textContent);
     }
     // Condolence msg if High Score is not beaten
     else {
         viewing.appendChild(hsTextEl);
         hsTextEl.textContent = "Sorry!!! " + initials + " You did not beat the High Score of: " + lastHighScore;
-        console.log(hsP1El.textContent);
-        console.log("less than")
     }
+
+    // Create Go Back Button
     
+    var goBackBtnEl = document.createElement("button");
+    viewing.appendChild(goBackBtnEl);
+    goBackBtnEl.getAttribute("class", "clearbtn");
+    goBackBtnEl.textContent = "Go Back";
+        
+    // Create Clear High Score button
+    var clearBtnEl = document.createElement("button");
+    viewing.appendChild(clearBtnEl);
+    clearBtnEl.getAttribute("class", "clearbtn");
+    clearBtnEl.textContent = "Clear High Score";
+
     
     
     // // Create High Score Text
@@ -295,9 +305,6 @@ listEl.addEventListener("click", function(event) {
     if(element.matches("li") && elementText === quiz[quizNum].answer) {
         
         quizNum ++;
-        // Resets to a blank list
-        // divQuestion.textContent = "";
-        // listEl.textContent = "";
         viewing.appendChild(listEl);
         correctAnswer = true;
         checkAnswer();
@@ -305,8 +312,6 @@ listEl.addEventListener("click", function(event) {
     else if (element.matches("li") && elementText !== quiz[quizNum].answer) {
         
         quizNum ++;
-        // Resets to a blank list 
-        // listEl.textContent = "";
         viewing.appendChild(listEl);
         
         checkAnswer();
@@ -326,4 +331,11 @@ submitEl.addEventListener("click", function(event) {
 
     }
 })
-
+// Checks if the enter key is pressed for the input initials screen
+inputEl.addEventListener("submit", function(event) {
+    var keyPress = event.target;
+    if(event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("submitEl");
+    } 
+})
