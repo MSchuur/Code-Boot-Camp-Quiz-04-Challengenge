@@ -4,7 +4,9 @@ var timerEl = document.querySelector(".timer");
 var scoreEl = document.getElementById("time");
 var footerEl = document.getElementById("ansDisplay");
 var start = document.querySelector(".startB");
-var highScoreEl = document.getElementById("highscore");
+var highScoreDivEl = document.querySelector(".high-score");
+var highScoreListEl = document.querySelector(".hslist");
+var highScoreLiEl = document.querySelector("#highscore");
 
 
 // Creating Element to place the Quiz Question
@@ -18,9 +20,10 @@ var inputEl = document.createElement("input");
 var formP1El = document.createElement("p");
 var formP2El = document.createElement("p");
 var submitEl = document.createElement("button");
+var initials;
 var highScoreEl = document.createElement("li");
 var hsTitleEl = document.createElement("h1");
-var hsP1El = document.createElement("p");
+var hsTextEl = document.createElement("h4");
 var clearBtnEl = document.createElement("button");
 var goBackBtnEl = document.createElement("button");
 
@@ -34,8 +37,7 @@ var storedHighScore = 0;
 var initials;
 
 function init() {
-    storedHighScore = JSON.parse(localStorage.getItem("highscore"));
-    console.log(storedHighScore);
+    console.log("Starts here");
 }
 
 // Questions and answers for the quiz
@@ -108,7 +110,6 @@ function setTimer() {
 function renderQuestion() {
     // Checks to see if all quiz questions have been asked and if true stop quiz and brings up input form
     
-    console.log(quizNum);
     divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
     viewing.appendChild(listEl);
@@ -118,8 +119,6 @@ function renderQuestion() {
         li.textContent = quiz[quizNum].options[i];
         listEl.appendChild(li);
         listEl.setAttribute("class", "veiwing");
-        
-    
     }
 }
 
@@ -192,6 +191,7 @@ function inptInt(){
 
 function highScoreList () {
     
+    
     // Clear viewing area
     viewing.textContent = "";
     
@@ -200,32 +200,62 @@ function highScoreList () {
     hsTitleEl.getAttribute("class", "hsh1");
     hsTitleEl.textContent = "High Scores";
 
-    // Create High Score Text
-    viewing.appendChild("hsP1El");
-    hsP1El.getAttribute("class", "hsp");
-    hsP1El.textContent= initials + "   " + score;
-    console.log(hsP1El.textContent);
+    // Compare High Score and store top High Score
+    
+    var lastHighScore = localStorage.getItem("HighScore", score);
+    console.log(lastHighScore);
 
+    // Check to see if a High Score is stored
+    if (lastHighScore === null) {
+        lastHighScore = 0;
+    }
 
-
-
+    // Displays and stores if High score is beaten
+    if (lastHighScore < score) {
+        localStorage.setItem("HighScore", score);
+        viewing.appendChild(hsTextEl);
+        hsTextEl.textContent = "Congrats!!! " + initials + " You now have the High Score: " + score;
+        console.log(hsP1El.textContent);
+    }
+    // Condolence msg if High Score is not beaten
+    else {
+        viewing.appendChild(hsTextEl);
+        hsTextEl.textContent = "Sorry!!! " + initials + " You did not beat the High Score of: " + lastHighScore;
+        console.log(hsP1El.textContent);
+        console.log("less than")
+    }
     
     
-    // if (storedHighScore > score) {
-    //     alert = "You did not beat the High Score. Try Again";
-    // }
-    // else {
-        
-    //     console.log(storedHighScore);
-    // }
+    
+    // // Create High Score Text
+    // viewing.appendChild(hsP1El);
+    // hsTextEl.getAttribute("class", "hsp");
+    // hsTextEl.textContent = initials + "   " + score;
+    
+    
+
+    // // var li =document.createElement("li");
+    // highScoreEl.textContent = hsTextEl.textContent;
+    // body.appendChild(highScoreDivEl);
+    // highScoreDivEl.appendChild(highScoreListEl);
+    // highScoreListEl.appendChild(highScoreLiEl);    
 }
+    
 
+
+
+
+    
+    
+    
 // Loads High Scores and starts the quiz
 init();
 
 
 // Starts the fucntion for the quiz when the start button is clicked
 start.addEventListener("click", function(event) {
+    
+    event.preventDefault();
     secondsLeft = 75;
     listEl.textContent = "";
     viewing.appendChild(listEl);
@@ -239,6 +269,7 @@ start.addEventListener("click", function(event) {
 // Listens for a click then determines if it is targeting the LI and then detirmeine if the guess is correct 
 listEl.addEventListener("click", function(event) {
 
+    event.preventDefault();
     var element = event.target;
     var elementText = event.target.innerText;
 
@@ -249,7 +280,6 @@ listEl.addEventListener("click", function(event) {
         listEl.textContent = "";
         viewing.appendChild(listEl);
         correctAnswer = true;
-        console.log(correctAnswer);
         checkAnswer();
     }
     else if (element.matches("li") && elementText !== quiz[quizNum].answer) {
@@ -270,9 +300,8 @@ submitEl.addEventListener("click", function(event) {
     console.log(subElement);
 
     if(subElement.matches("button") === true) {
-        var initials = inputEl.value.trim();
+        initials = inputEl.value.trim();
         initials = initials.toUpperCase();
-        console.log(initials);
         highScoreList ();
 
     }
