@@ -24,8 +24,8 @@ var initials;
 var highScoreEl = document.createElement("li");
 var hsTitleEl = document.createElement("h1");
 var hsTextEl = document.createElement("h4");
-
-
+var clearBtnEl = document.createElement("button");
+var goBackBtnEl = document.createElement("button");
 
 
 var quizNum = 0;
@@ -37,9 +37,6 @@ var storedHighScore = 0;
 var initials;
 var delayTime = 2;
 
-function init() {
-    console.log("Starts here");
-}
 
 // Questions and answers for the quiz
 var quiz = [
@@ -242,14 +239,12 @@ function highScoreList () {
     }
 
     // Create Go Back Button
-    
-    var goBackBtnEl = document.createElement("button");
     viewing.appendChild(goBackBtnEl);
-    goBackBtnEl.getAttribute("class", "clearbtn");
+    goBackBtnEl.getAttribute("class", "goBackBtn");
     goBackBtnEl.textContent = "Go Back";
         
     // Create Clear High Score button
-    var clearBtnEl = document.createElement("button");
+    
     viewing.appendChild(clearBtnEl);
     clearBtnEl.getAttribute("class", "clearbtn");
     clearBtnEl.textContent = "Clear High Score";
@@ -278,8 +273,6 @@ function highScoreList () {
     
     
 // Loads High Scores and starts the quiz
-init();
-
 
 // Starts the fucntion for the quiz when the start button is clicked
 start.addEventListener("click", function(event) {
@@ -322,8 +315,7 @@ listEl.addEventListener("click", function(event) {
 submitEl.addEventListener("click", function(event) {
     var subElement = event.target;
     event.preventDefault();
-    console.log(subElement);
-
+    
     if(subElement.matches("button") === true) {
         initials = inputEl.value.trim();
         initials = initials.toUpperCase();
@@ -334,8 +326,27 @@ submitEl.addEventListener("click", function(event) {
 // Checks if the enter key is pressed for the input initials screen
 inputEl.addEventListener("submit", function(event) {
     var keyPress = event.target;
-    if(event.key === "Enter") {
+    if (keyPress === "Enter") {
         event.preventDefault();
-        document.getElementById("submitEl");
     } 
+})
+
+goBackBtnEl.addEventListener("click", function(event) {
+    var backElement = event.target;
+    event.preventDefault();
+    
+    if(backElement.matches("button") === true) {
+        console.log(backElement);
+        window.location.reload();
+    }
+})
+
+clearBtnEl.addEventListener("click", function(event) {
+    var backElement = event.target;
+    event.preventDefault();
+    
+    if(backElement.matches("button") === true) {
+        score = "";
+        localStorage.setItem("HighScore", score);
+    }
 })
