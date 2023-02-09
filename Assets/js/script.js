@@ -4,7 +4,7 @@ var timerEl = document.querySelector(".timer");
 var scoreEl = document.getElementById("time");
 var footerEl = document.getElementById("ansDisplay");
 var start = document.querySelector(".startB");
-
+var highScoreEl = document.getElementById("highscore");
 
 
 // Creating Element to place the Quiz Question
@@ -18,11 +18,28 @@ var inputEl = document.createElement("input");
 var formP1El = document.createElement("p");
 var formP2El = document.createElement("p");
 var submitEl = document.createElement("button");
+var highScoreEl = document.createElement("li");
 
 var quizNum = 0;
 var correctAnswer;
 var secondsLeft = 75;
 var score;
+var highScore = [];
+
+function init() {
+    var storedHS = JSON.parse(localStorage.getItem("highscore"));
+    console.log(storedHS);
+}
+
+// function saveHighScore() {
+    
+//     var highScore = [inputEl.innerHTML, score];
+//     }
+// }
+
+// function renderHighScore () {
+    
+// }
 
 // Questions and answers for the quiz
 var quiz = [
@@ -65,6 +82,8 @@ var quiz = [
 
 function startQuiz(event) {
     var startElButton = document.getElementById("startButton");
+    startElButton.remove();
+    startElButton = document.getElementById("title");
     startElButton.remove();
 }
 
@@ -165,13 +184,17 @@ function inptInt(){
     labelEl.setAttribute("class", "label")
     formEl.appendChild(inputEl);
     inputEl.setAttribute("placeholder", "Enter your initials here.");
-    inputEl.setAttribute("class", "form");
+    inputEl.setAttribute("class", "formInpt");
 
     // Create submit button
     labelEl.appendChild(submitEl);
-    submitEl.setAttribute("class", "submitForm");
+    submitEl.setAttribute("class", "submitBtn");
     submitEl.textContent = "Submit";
 }
+
+// Loads High Scores and starts the quiz
+init();
+
 
 // Starts the fucntion for the quiz when the start button is clicked
 start.addEventListener("click", function(event) {
@@ -215,8 +238,12 @@ listEl.addEventListener("click", function(event) {
 // Checks if the submit button is pressed for the input initials screen
 submitEl.addEventListener("click", function(event) {
     var subElement = event.target;
-    
+    event.preventDefault();
+    console.log(subElement);
+
     if(subElement.matches("button") === true) {
+    
+        renderHighScoreList ()
 
     }
 })
