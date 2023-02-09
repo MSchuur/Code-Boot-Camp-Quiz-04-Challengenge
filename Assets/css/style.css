@@ -197,3 +197,9 @@ p {
     cursor: pointer;
 }
 
+.footer {
+    font-size: 35px;
+    text-align: center;
+    font-weight: normal;
+    font-style: italic;
+}

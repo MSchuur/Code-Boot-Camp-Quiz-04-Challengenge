@@ -108,8 +108,8 @@ function setTimer() {
 
 // Function to renderthe question and answers
 function renderQuestion() {
-    // Checks to see if all quiz questions have been asked and if true stop quiz and brings up input form
-    
+
+    footerEl.textContent = " ";
     divQuestion.textContent = quiz[quizNum].ask;
     viewing.appendChild(divQuestion);
     viewing.appendChild(listEl);
@@ -131,7 +131,7 @@ function checkAnswer(){
     if(correctAnswer === true) {
         correctAnswer = false;
         footerEl.textContent = "Correct";
-        
+                
         if(quiz.length === quizNum) {
             clearInterval(scoreEl);
             inptInt();
@@ -143,7 +143,7 @@ function checkAnswer(){
     else {
         secondsLeft = secondsLeft - 15;
         footerEl.textContent = "Wrong";
-        
+                
         if(quiz.length === quizNum) {
             clearInterval(scoreEl);
             inptInt();
@@ -159,6 +159,7 @@ function inptInt(){
     
     // Clear quiz from veiewing area
     divQuestion.textContent = " ";
+    footerEl.textContent = " ";
 
     // Create form
     viewing.appendChild(formEl);
@@ -272,7 +273,7 @@ listEl.addEventListener("click", function(event) {
     event.preventDefault();
     var element = event.target;
     var elementText = event.target.innerText;
-
+    
     if(element.matches("li") && elementText === quiz[quizNum].answer) {
         
         quizNum ++;
