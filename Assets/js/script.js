@@ -5,8 +5,8 @@ var scoreEl = document.getElementById("time");
 var footerEl = document.getElementById("ansDisplay");
 var start = document.querySelector(".startB");
 var highScoreDivEl = document.querySelector(".high-score");
-var highScoreListEl = document.querySelector(".hslist");
-var highScoreLiEl = document.querySelector("#highscore");
+var highScoreListEl = document.getElementById("hslist");
+var highScoreLiEl = document.getElementById("highscore");
 
 
 // Creating Element to place the Quiz Question
@@ -35,7 +35,8 @@ var score;
 var highScore = [];
 var storedHighScore = 0;
 var initials;
-var delayTime = 2;
+var lastHighScore;
+var lastHighInit;
 
 
 // Questions and answers for the quiz
@@ -207,8 +208,7 @@ function inptInt(){
 }
 
 function highScoreList () {
-    
-    
+        
     // Clear viewing area
     viewing.textContent = "";
     
@@ -218,12 +218,12 @@ function highScoreList () {
     hsTitleEl.textContent = "High Scores";
 
     // Compare High Score and store top High Score
-    
     var lastHighScore = localStorage.getItem("HighScore", score);
-    
+       
     // Check to see if a High Score is stored
     if (lastHighScore === null) {
         lastHighScore = 0;
+        lastHighInit = "";
     }
 
     // Displays and stores if High score is beaten
@@ -231,49 +231,27 @@ function highScoreList () {
         localStorage.setItem("HighScore", score);
         viewing.appendChild(hsTextEl);
         hsTextEl.textContent = "Congrats!!! " + initials + " You now have the High Score: " + score;
+        highScoreLiEl.textContent = score;
     }
     // Condolence msg if High Score is not beaten
     else {
         viewing.appendChild(hsTextEl);
         hsTextEl.textContent = "Sorry!!! " + initials + " You did not beat the High Score of: " + lastHighScore;
+        highScoreLiEl.textContent = lastHighScore;
     }
 
     // Create Go Back Button
-    viewing.appendChild(goBackBtnEl);
+    footerEl.appendChild(goBackBtnEl);
     goBackBtnEl.getAttribute("class", "goBackBtn");
     goBackBtnEl.textContent = "Go Back";
         
     // Create Clear High Score button
-    
-    viewing.appendChild(clearBtnEl);
+    footerEl.appendChild(clearBtnEl);
     clearBtnEl.getAttribute("class", "clearbtn");
     clearBtnEl.textContent = "Clear High Score";
-
-    
-    
-    // // Create High Score Text
-    // viewing.appendChild(hsP1El);
-    // hsTextEl.getAttribute("class", "hsp");
-    // hsTextEl.textContent = initials + "   " + score;
-    
-    
-
-    // // var li =document.createElement("li");
-    // highScoreEl.textContent = hsTextEl.textContent;
-    // body.appendChild(highScoreDivEl);
-    // highScoreDivEl.appendChild(highScoreListEl);
-    // highScoreListEl.appendChild(highScoreLiEl);    
 }
-    
-
-
-
-
-    
-    
-    
-// Loads High Scores and starts the quiz
-
+lastHighScore = localStorage.getItem("HighScore", score);
+highScoreLiEl.textContent = lastHighScore;
 // Starts the fucntion for the quiz when the start button is clicked
 start.addEventListener("click", function(event) {
     
@@ -324,11 +302,10 @@ submitEl.addEventListener("click", function(event) {
     }
 })
 // Checks if the enter key is pressed for the input initials screen
-inputEl.addEventListener("submit", function(event) {
+formEl.addEventListener("submit", function(event) {
     var keyPress = event.target;
-    if (keyPress === "Enter") {
-        event.preventDefault();
-    } 
+    event.preventDefault();
+     
 })
 
 goBackBtnEl.addEventListener("click", function(event) {
@@ -348,5 +325,7 @@ clearBtnEl.addEventListener("click", function(event) {
     if(backElement.matches("button") === true) {
         score = "";
         localStorage.setItem("HighScore", score);
+        window.location.reload();
     }
 })
+

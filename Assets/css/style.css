@@ -26,15 +26,18 @@ body {
     font-size: 15px;
 }
 
-.hslist {
+#hslist {
     width: 100px;
     padding-left: 0px;
     list-style: none;
 }
 
 #highscore {
+    font-size: 15px;
+    font-weight: bold;
     list-style: none;
     margin-bottom: 50px;
+    padding-left: 25px;
 }
 
 .timer {
@@ -68,7 +71,6 @@ h4 {
     text-align: left;
     padding: 0px 50px;
     margin-top: 50px;
-    border: 2px solid darkgray;
 }
 
 .viewing div {
@@ -78,7 +80,6 @@ h4 {
 p {
     text-align: center;
     margin:  10 px 50px;
-
 }
 
 .viewing ul {
@@ -180,7 +181,7 @@ p {
     cursor: pointer;
 }
 
-.goBackBtn {
+.footer .goBackBtn {
     position: absolute;
     left: 45%;
     padding: 10px;
@@ -218,5 +219,22 @@ p {
     text-align: center;
     font-weight: normal;
     font-style: italic;
+}
+
+.footer .goBackBtn {
+    position: absolute;
+    left: 45%;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: #330a76;
+    color: white;
+}
+
+.goBack:hover {
+    background-color: #930693;
+    cursor: pointer;
 }
 
